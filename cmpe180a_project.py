@@ -96,7 +96,7 @@ df[['artist_name', 'track_name']].duplicated().sum()
 df = df.drop_duplicates(subset=['artist_name', 'track_name'])
 print(df.shape) #check on the number of unique tracks
 
-"""**Feature Engineerin**g
+"""**Feature Engineering**
 - Convert duration to minutes
 """
 
@@ -147,7 +147,7 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
 
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error, r2_score
 
 rf = RandomForestRegressor(n_estimators=100, random_state=42) #use random forest
 rf.fit(X_train, y_train)
@@ -167,16 +167,10 @@ sns.barplot(x=importances, y=features)
 plt.title("Feature Importance in Random Forest")
 plt.show()
 
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_squared_error
 
 rf = RandomForestRegressor(n_estimators=100, random_state=42)
 rf.fit(X_train, y_train)
 
 y_pred = rf.predict(X_test)
 print("MSE:", mean_squared_error(y_test, y_pred))
-
-from sklearn.metrics import mean_squared_error
-
-mse = mean_squared_error(y_test, y_pred)
-print("Mean Squared Error:", mse)
+print("R2 Score:", r2_score(y_test, y_pred))
